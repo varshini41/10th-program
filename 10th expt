@@ -1,0 +1,85 @@
+package filehandling;
+       
+ import java.io.*;
+
+
+   
+
+class Stock
+{
+String tit,aut,pub;
+int noc;
+double price;
+public Stock()
+{
+tit=" ";
+pub=" ";
+aut=" ";
+noc=0;
+price=0.0;
+}
+public void getdata()throws IOException
+{
+BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
+System.out.println("ENTER TITLE :");
+tit=br.readLine();
+System.out.println("ENTER AUTHOR :");
+aut=br.readLine();
+System.out.println("ENTER PUBLISHER'S NAME :");
+pub=br.readLine();
+System.out.println("ENTER NUMBER OF COPIES :");
+noc=Integer.parseInt(br.readLine());
+System.out.println("ENTER PRICE PER COPY :");
+price=Double.parseDouble(br.readLine());
+System.out.println("**********");
+}
+public void display(int n)
+{
+System.out.println("TITLE :: "+tit+"\n AUTHOR ::"+aut+"\n PUBLISHER ::"+pub+"\n PRICE ::"+price);
+System.out.println("TOTAL PRICE ::"+(n*price));
+noc-=n;
+System.out.println("NUMBER OF COPIES LEFT ::"+noc);
+}
+public void check(String t,String a,int n)throws IOException
+{
+BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
+Stock st[]=new Stock[5];
+for(int i=0;i<5;i++)
+{
+st[i]=new Stock();
+st[i].getdata();
+}
+int f=0;
+for(int i=0;i<5;i++)
+{
+String ti=st[i].tit;
+if(ti.equals(t)&&st[i].aut.equals(a))
+{
+if(st[i].noc>=n)
+st[i].display(n);
+else
+{
+System.out.println("BOOK NOT ENOUGH");
+f=1;
+break;
+}
+}
+}
+if(f==1)
+System.out.println("NOT IN STOCK");
+}
+public static void main(String arg[])throws IOException
+{
+BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
+String aut,tit;
+int n;
+System.out.println("ENTER TITLE :");
+tit=br.readLine();
+System.out.println("ENTER AUTHOR :");
+aut=br.readLine();
+System.out.println("ENTER NUMBER OF COPIES :");
+n=Integer.parseInt(br.readLine());
+Stock o=new Stock();
+o.check(tit,aut,n);
+}
+}
